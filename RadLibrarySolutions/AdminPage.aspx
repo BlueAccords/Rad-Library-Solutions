@@ -45,6 +45,61 @@ WHERE Checkout.ReturnDate IS NULL
 GROUP BY Checkout.UserID;
 "></asp:SqlDataSource>
         <br />
+        <span class="auto-style1"><strong>List of Users who have a fine cost greater than at least one person who has already paid their fine.<br />
+        </strong>
+        <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" CellPadding="4" DataSourceID="Query2_GridView" ForeColor="#333333" GridLines="None">
+            <AlternatingRowStyle BackColor="White" />
+            <Columns>
+                <asp:BoundField DataField="UserID" HeaderText="UserID" SortExpression="UserID" />
+                <asp:BoundField DataField="Total_Fine" HeaderText="Total_Fine" ReadOnly="True" SortExpression="Total_Fine" />
+            </Columns>
+            <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
+            <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
+            <PagerStyle BackColor="#FFCC66" ForeColor="#333333" HorizontalAlign="Center" />
+            <RowStyle BackColor="#FFFBD6" ForeColor="#333333" />
+            <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="Navy" />
+            <SortedAscendingCellStyle BackColor="#FDF5AC" />
+            <SortedAscendingHeaderStyle BackColor="#4D0000" />
+            <SortedDescendingCellStyle BackColor="#FCF6C0" />
+            <SortedDescendingHeaderStyle BackColor="#820000" />
+        </asp:GridView>
+        <asp:SqlDataSource ID="Query2_GridView" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT OVERDUE_BOOK.UserID, SUM(OVERDUE_BOOK.Days_Overdue * 0.10 + 2) AS Total_Fine
+FROM OVERDUE_BOOK
+WHERE (OVERDUE_BOOK.Days_Overdue * 0.10 + 2) &gt; ANY (SELECT (OVERDUE_BOOK.Days_Overdue * 0.10 + 2)
+						  FROM OVERDUE_BOOK
+						  WHERE Paid_Status = 'PAID')
+GROUP BY UserID;
+"></asp:SqlDataSource>
+        <br />
+        <strong>List of Users and their current fines.<br />
+        </strong>
+        <asp:GridView ID="GridView3" runat="server" AutoGenerateColumns="False" CellPadding="4" DataSourceID="Query4_GridView" ForeColor="#333333" GridLines="None">
+            <AlternatingRowStyle BackColor="White" />
+            <Columns>
+                <asp:BoundField DataField="FName" HeaderText="FName" SortExpression="FName" />
+                <asp:BoundField DataField="Lname" HeaderText="Lname" SortExpression="Lname" />
+                <asp:BoundField DataField="Email" HeaderText="Email" SortExpression="Email" />
+                <asp:BoundField DataField="Fine" HeaderText="Fine" ReadOnly="True" SortExpression="Fine" />
+                <asp:BoundField DataField="PAID_STATUS" HeaderText="PAID_STATUS" SortExpression="PAID_STATUS" />
+            </Columns>
+            <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
+            <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
+            <PagerStyle BackColor="#FFCC66" ForeColor="#333333" HorizontalAlign="Center" />
+            <RowStyle BackColor="#FFFBD6" ForeColor="#333333" />
+            <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="Navy" />
+            <SortedAscendingCellStyle BackColor="#FDF5AC" />
+            <SortedAscendingHeaderStyle BackColor="#4D0000" />
+            <SortedDescendingCellStyle BackColor="#FCF6C0" />
+            <SortedDescendingHeaderStyle BackColor="#820000" />
+        </asp:GridView>
+        <asp:SqlDataSource ID="Query4_GridView" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT [USER].FName, [USER].Lname, [USER].Email, (OVERDUE_BOOK.Days_Overdue * 0.10 + 2) AS Fine, OVERDUE_BOOK.PAID_STATUS
+FROM [USER]
+FULL JOIN OVERDUE_BOOK
+ON [USER].UserID = OVERDUE_BOOK.UserID
+WHERE OVERDUE_BOOK.Paid_Status = 'NOT PAID';
+"></asp:SqlDataSource>
+        </span>
+        <br />
         <br />
     </form>
 </body>
