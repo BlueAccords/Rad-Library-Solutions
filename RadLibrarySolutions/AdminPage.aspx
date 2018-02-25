@@ -9,6 +9,9 @@
         a {
             text-decoration: none;
         }
+        .auto-style1 {
+            font-size: large;
+        }
     </style>
 </head>
 <body>
@@ -18,7 +21,7 @@
             &nbsp;&nbsp;&nbsp;
             <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/AdminPage.aspx" Font-Underline="True">Administrators</asp:HyperLink>
             <br />
-            Number of books currently checked out by user:<br />
+            <span class="auto-style1"><strong>Number of books currently checked out by each user by their UserID:</strong></span><br />
         </div>
         <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CellPadding="4" DataSourceID="SqlDataSource1" ForeColor="#333333" GridLines="None">
             <AlternatingRowStyle BackColor="White" />
@@ -41,6 +44,7 @@ FROM CHECKOUT
 WHERE Checkout.ReturnDate IS NULL
 GROUP BY Checkout.UserID;
 "></asp:SqlDataSource>
+        <br />
         <br />
     </form>
 </body>

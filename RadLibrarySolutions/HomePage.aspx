@@ -119,7 +119,7 @@ AND BOOK.Publisher = @Publisher
             </asp:SqlDataSource>
         </p>
         <p>
-            <asp:SqlDataSource ID="Query7_BooksOfPublisherDropdown" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT * FROM [BOOK]"></asp:SqlDataSource>
+            <asp:SqlDataSource ID="Query7_BooksOfPublisherDropdown" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT DISTINCT Publisher FROM [BOOK]"></asp:SqlDataSource>
         </p>
     </form>
 </body>
