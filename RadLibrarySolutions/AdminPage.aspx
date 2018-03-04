@@ -20,6 +20,8 @@
             <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Homepage.aspx">Home Page</asp:HyperLink>
             &nbsp;&nbsp;&nbsp;
             <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/AdminPage.aspx" Font-Underline="True">Administrators</asp:HyperLink>
+             &nbsp;&nbsp;&nbsp;
+            <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="~/SearchPage.aspx" Font-Underline="False">Search Page</asp:HyperLink>
             <br />
             <span class="auto-style1"><strong>Number of books currently checked out by each user by their UserID:</strong></span><br />
         </div>

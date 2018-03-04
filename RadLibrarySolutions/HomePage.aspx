@@ -22,6 +22,8 @@
             <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Homepage.aspx" Font-Underline="True">Home Page</asp:HyperLink>
             &nbsp;&nbsp;&nbsp;
             <asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/AdminPage.aspx" Font-Underline="False">Administrators</asp:HyperLink>
+             &nbsp;&nbsp;&nbsp;
+            <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="~/SearchPage.aspx" Font-Underline="False">Search Page</asp:HyperLink>
             <br />
             <span class="auto-style1">Books currenly checked out by a User:</span><br />
             Select a User:
