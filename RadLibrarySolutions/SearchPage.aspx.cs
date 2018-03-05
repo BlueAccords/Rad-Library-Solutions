@@ -12,18 +12,17 @@ using System.Data;
 public partial class SearchPage : System.Web.UI.Page
 {
 
-    OleDbConnection DBConnection;
-    OleDbCommand DBCommand;
-    OleDbDataReader DBReader;
+
     SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
     string selectUSERSQL;
+    string selectBOOKSQL;
 
     protected void Page_Load(object sender, EventArgs e)
     {
 
     }
 
-    protected void searchBooksBtn_Click(object sender, EventArgs e)
+    protected void searchUsers_Button_Click(object sender, EventArgs e)
     {
 
         //selectUSERSQL = ("SELECT Fname, Lname, Email FROM [User] WHERE Fname LIKE \'%" + (searchBooks_TextBox.Text + "%\' "));
@@ -34,7 +33,7 @@ public partial class SearchPage : System.Web.UI.Page
                         " AND BOOK_COPY.CopyID = CHECKOUT.CopyID" +
                         " AND BOOK_COPY.BookBookISBN = BOOK.BookISBN" +
                         " AND[USER].UserID = CHECKOUT.UserID" +
-                        " AND[USER].Fname LIKE \'%" + (searchBooks_TextBox.Text + "%\' "));
+                        " AND[USER].Fname LIKE \'%" + (searchUsers_TextBox.Text + "%\' "));
         SqlCommand comm = new SqlCommand(selectUSERSQL, con);
 
         con.Open();
@@ -50,6 +49,31 @@ public partial class SearchPage : System.Web.UI.Page
         da.Fill(ds, "CHECKOUT.CheckoutDate");
         da.Fill(ds, "CHECKOUT.DueDate");
         da.Fill(ds, "CHECKOUT.ReturnDate");
+
+
+        searchUsers_GridView.DataSource = ds;
+        searchUsers_GridView.DataBind();
+
+        con.Close();
+    }
+
+    
+    protected void searchBooksBtn_Click(object sender, EventArgs e)
+    {
+        selectBOOKSQL = "SELECT BOOKISBN, TITLE, PUBLISHER FROM BOOK WHERE TITLE LIKE \'%" + (searchBooks_TextBox.Text + "%\' ");
+        SqlCommand comm = new SqlCommand(selectBOOKSQL, con);
+
+        con.Open();
+        comm.ExecuteNonQuery();
+        SqlDataAdapter da = new SqlDataAdapter();
+        da.SelectCommand = comm;
+
+        DataSet ds = new DataSet();
+        da.Fill(ds, "BOOK.ISBN");
+        da.Fill(ds, "BOOK.Title");
+        da.Fill(ds, "BOOK.Author");
+        da.Fill(ds, "BOOK.Publisher");
+
 
 
         searchBooks_GridView.DataSource = ds;
