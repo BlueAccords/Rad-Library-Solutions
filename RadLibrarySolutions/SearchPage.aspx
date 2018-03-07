@@ -32,8 +32,9 @@
             <SortedDescendingHeaderStyle BackColor="#002876" />
         </asp:GridView>
         <p>
-            Search Users:
-            <asp:TextBox ID="searchUsers_TextBox" runat="server"></asp:TextBox>
+            <strong>Users with currently checked out books</strong></p>
+        <p>
+            Search Users: <asp:TextBox ID="searchUsers_TextBox" runat="server"></asp:TextBox>
             <asp:Button ID="searchUsers_Button" runat="server" OnClick="searchUsers_Button_Click" Text="Submit" />
         </p>
         <asp:GridView ID="searchUsers_GridView" runat="server" BackColor="White" BorderColor="#3366CC" BorderStyle="None" BorderWidth="1px" CellPadding="4">

@@ -11,4 +11,14 @@ public partial class HomePage : System.Web.UI.Page
     {
 
     }
+
+    protected void DropDownList2_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void GridView3_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+    }
 }

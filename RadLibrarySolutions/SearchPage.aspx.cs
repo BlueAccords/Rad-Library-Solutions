@@ -57,7 +57,7 @@ public partial class SearchPage : System.Web.UI.Page
         con.Close();
     }
 
-    
+
     protected void searchBooksBtn_Click(object sender, EventArgs e)
     {
         selectBOOKSQL = "SELECT BOOKISBN, TITLE, PUBLISHER FROM BOOK WHERE TITLE LIKE \'%" + (searchBooks_TextBox.Text + "%\' ");
