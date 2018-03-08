@@ -29,7 +29,8 @@
             <AlternatingRowStyle BackColor="White" />
             <Columns>
                 <asp:BoundField DataField="UserID" HeaderText="UserID" SortExpression="UserID" />
-                <asp:BoundField DataField="Num_Books_Checked_Out" HeaderText="Books Checked Out" ReadOnly="True" SortExpression="Num_Books_Checked_Out" />
+                <asp:BoundField DataField="Email" HeaderText="Email" SortExpression="Email" />
+                <asp:BoundField DataField="Num_Books_Checked_Out" HeaderText="Num_Books_Checked_Out" ReadOnly="True" SortExpression="Num_Books_Checked_Out" />
             </Columns>
             <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
             <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
@@ -41,11 +42,11 @@
             <SortedDescendingCellStyle BackColor="#FCF6C0" />
             <SortedDescendingHeaderStyle BackColor="#820000" />
         </asp:GridView>
-        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT Checkout.UserID, COUNT(CHECKOUT.CopyID) AS Num_Books_Checked_Out
-FROM CHECKOUT
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT Checkout.UserID, [USER].Email, COUNT(CHECKOUT.CopyID) AS Num_Books_Checked_Out
+FROM CHECKOUT, [USER]
 WHERE Checkout.ReturnDate IS NULL
-GROUP BY Checkout.UserID;
-"></asp:SqlDataSource>
+	AND CHECKOUT.UserID=[USER].UserID
+GROUP BY Checkout.UserID, [USER].Email;"></asp:SqlDataSource>
         <span class="auto-style1"><strong><br />
         </strong>
         <br />
